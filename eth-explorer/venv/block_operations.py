@@ -21,13 +21,13 @@ def block_exists(_block_number):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(sql)
-    _block_number_db = cursor.fetchone[0]
+    _block_number_db = cursor.fetchone()
     conn.commit()
     cursor.close()
-    if str(_block_number_db) == _block_number:
-        return true
+    if str(_block_number_db) == str(_block_number):
+        return True
     else:
-        return false
+        return False
 
 
 def store_block(_block_information):

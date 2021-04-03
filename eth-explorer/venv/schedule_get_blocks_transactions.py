@@ -5,11 +5,11 @@ from contract_operations import *
 from transaction_operations import *
 
 if __name__ == '__main__':
-    # latest_block = get_block_information('latest')
     latest_block_number = get_block_information('latest')['number']
-    if not block_exists(latest_block_number):
-        # store latest_block to db
-        for block_number in range(latest_block_number, latest_block_number - 100, -1):
+    # store latest_block to db
+    for block_number in range(latest_block_number, latest_block_number - 100, -1):
+        # check if block_number exists in DB, process it doesnt exist
+        if not block_exists(block_number):
             block_information = get_block_information(block_number)
             # store block_information to db
             print(block_information)
@@ -31,7 +31,7 @@ if __name__ == '__main__':
                     transaction_receipt = get_transaction_receipt(transaction)
                     # store transaction_receipt to db
                     print(transaction_receipt)
-
-
                 except TypeError as type_error:
                     print(f"Type Error Decoding ", type_error.args)
+            else:
+                print(f'Block number ', block_number, ' exists in DB')

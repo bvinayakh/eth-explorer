@@ -62,7 +62,6 @@ def store_contract_details(_contract):
         _supply = str(_contract['supply'])
         _amount = str(_contract['amount'])
         _contract = str(_contract['contract'])
-
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(sql, (_block, _txnhash, _contract, _from, _to, _amount, _decimals, _supply, _abi))
