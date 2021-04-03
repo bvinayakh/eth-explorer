@@ -16,6 +16,20 @@ def get_block_information(_block_number):
     return block_json
 
 
+def block_exists(_block_number):
+    sql = """select "number" from block_information order by "number" DESC"""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    _block_number_db = cursor.fetchone[0]
+    conn.commit()
+    cursor.close()
+    if str(_block_number_db) == _block_number:
+        return true
+    else:
+        return false
+
+
 def store_block(_block_information):
     try:
         sql = """insert into block_information(difficulty,"extraData","gasLimit","gasUsed",hash,"logsBloom",miner,"mixHash",nonce,"number","parentHash","receiptsRoot","sha3Uncles","size","stateRoot","timestamp","totalDifficulty",transactions,"transactionsRoot",uncles) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) returning number;"""
